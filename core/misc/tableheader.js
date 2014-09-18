@@ -120,7 +120,11 @@ Drupal.tableHeader.prototype.eventhandlerRecalculateStickyHeader = function (eve
         $stickyCell.css('display', 'none');
       }
     }
+<<<<<<< HEAD
     this.stickyTable.css('width', this.originalTable.css('width'));
+=======
+    this.stickyTable.css('width', this.originalTable.outerWidth());
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
   }
 };
 

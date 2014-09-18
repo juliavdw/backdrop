@@ -27,6 +27,10 @@
   color: #000;
   cursor: default;
   white-space: pre;
+<<<<<<< HEAD
+=======
+  zoom: 1; /* IE7 */
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 }
 /* Animated throbber */
 .js input.form-autocomplete {
@@ -229,6 +233,11 @@ tr .ajax-progress-throbber .throbber {
 .element-invisible {
   position: absolute !important;
   clip: rect(1px, 1px, 1px, 1px);
+<<<<<<< HEAD
+=======
+  overflow: hidden;
+  height: 1px;
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 }
 
 /**
@@ -239,6 +248,11 @@ tr .ajax-progress-throbber .throbber {
 .element-invisible.element-focusable:focus {
   position: static !important;
   clip: auto;
+<<<<<<< HEAD
+=======
+  overflow: visible;
+  height: auto;
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 }
 
 /**

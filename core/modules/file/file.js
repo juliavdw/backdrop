@@ -74,7 +74,18 @@ Drupal.file = Drupal.file || {
       var acceptableMatch = new RegExp('\\.(' + extensionPattern + ')$', 'gi');
       if (!acceptableMatch.test(this.value)) {
         var error = Drupal.t("The selected file %filename cannot be uploaded. Only files with the following extensions are allowed: %extensions.", {
+<<<<<<< HEAD
           '%filename': this.value,
+=======
+          // According to the specifications of HTML5, a file upload control
+          // should not reveal the real local path to the file that a user
+          // has selected. Some web browsers implement this restriction by
+          // replacing the local path with "C:\fakepath\", which can cause
+          // confusion by leaving the user thinking perhaps Drupal could not
+          // find the file because it messed up the file path. To avoid this
+          // confusion, therefore, we strip out the bogus fakepath string.
+          '%filename': this.value.replace('C:\\fakepath\\', ''),
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
           '%extensions': extensionPattern.replace(/\|/g, ', ')
         });
         $(this).closest('div.form-managed-file').prepend('<div class="messages error file-upload-js-error">' + error + '</div>');
@@ -109,9 +120,15 @@ Drupal.file = Drupal.file || {
     // don't have to worry about the fields being re-enabled too soon.
     // @todo If the previous sentence is true, why not set the timeout to 0?
     var $fieldsToTemporarilyDisable = $('div.form-managed-file input.form-file').not($enabledFields).not(':disabled');
+<<<<<<< HEAD
     $fieldsToTemporarilyDisable.attr('disabled', 'disabled');
     setTimeout(function (){
       $fieldsToTemporarilyDisable.attr('disabled', '');
+=======
+    $fieldsToTemporarilyDisable.prop('disabled', true);
+    setTimeout(function (){
+      $fieldsToTemporarilyDisable.prop('disabled', false);
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
     }, 1000);
   },
   /**

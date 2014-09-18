@@ -100,7 +100,11 @@ Drupal.jsAC.prototype.onkeyup = function (input, e) {
       return true;
 
     default: // All other keys.
+<<<<<<< HEAD
       if (input.value.length > 0) {
+=======
+      if (input.value.length > 0 && !input.readOnly) {
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
         this.populatePopup();
       }
       else {

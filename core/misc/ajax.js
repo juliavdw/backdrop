@@ -48,6 +48,18 @@ Drupal.behaviors.AJAX = {
         element_settings.url = $(this).attr('href');
         element_settings.event = 'click';
       }
+<<<<<<< HEAD
+=======
+      // Allow any AJAX link to set the HTTP "Accept" header.
+      element_settings.accepts = $(this).data('accepts');
+
+      // Special handling if the data-dialog attribute is TRUE.
+      if ($(this).data('dialog')) {
+        element_settings.dialog = $(this).data('dialog-options') || {};
+        element_settings.accepts = 'application/vnd.backdrop-dialog';
+      }
+
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
       var base = $(this).attr('id');
       Drupal.ajax[base] = new Drupal.ajax(base, this, element_settings);
     });
@@ -97,7 +109,10 @@ Drupal.behaviors.AJAX = {
  */
 Drupal.ajax = function (base, element, element_settings) {
   var defaults = {
+<<<<<<< HEAD
     url: 'system/ajax',
+=======
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
     event: 'mousedown',
     keypress: true,
     selector: '#' + base,
@@ -115,6 +130,7 @@ Drupal.ajax = function (base, element, element_settings) {
 
   $.extend(this, defaults, element_settings);
 
+<<<<<<< HEAD
   this.element = element;
   this.element_settings = element_settings;
 
@@ -132,12 +148,47 @@ Drupal.ajax = function (base, element, element_settings) {
   this.url = element_settings.url.replace(/\/nojs(\/|$|\?|&|#)/g, '/ajax$1');
   this.wrapper = '#' + element_settings.wrapper;
 
+=======
+  // @todo Remove this after refactoring the PHP code to:
+  //   - Call this 'selector'.
+  //   - Include the '#' for ID-based selectors.
+  //   - Support non-ID-based selectors.
+  if (this.wrapper) {
+    this.wrapper = '#' + this.wrapper;
+  }
+
+  this.element = element;
+  this.element_settings = element_settings;
+
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
   // If there isn't a form, jQuery.ajax() will be used instead, allowing us to
   // bind Ajax to links as well.
   if (this.element.form) {
     this.form = $(this.element.form);
   }
 
+<<<<<<< HEAD
+=======
+  // If no Ajax callback URL was given, use the link href or form action.
+  if (!this.url) {
+    if ($(element).is('a')) {
+      this.url = $(element).attr('href');
+    }
+    else if (element.form) {
+      this.url = this.form.attr('action');
+    }
+  }
+
+  // Replacing 'nojs' with 'ajax' in the URL allows for an easy method to let
+  // the server detect when it needs to degrade gracefully.
+  // There are five scenarios to check for:
+  // 1. /nojs/
+  // 2. /nojs$ - The end of a URL string.
+  // 3. /nojs? - Followed by a query (e.g. path/nojs?destination=foobar).
+  // 4. /nojs# - Followed by a fragment (e.g.: path/nojs#myfragment).
+  this.url = this.url.replace(/\/nojs(\/|$|\?|#)/g, '/ajax$1');
+
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
   // Set the options for the ajaxSubmit function.
   // The 'this' variable will not persist inside of the options object.
   var ajax = this;
@@ -170,8 +221,19 @@ Drupal.ajax = function (base, element, element_settings) {
       }
     },
     dataType: 'json',
+<<<<<<< HEAD
     type: 'POST'
   };
+=======
+    accepts: {
+      json: element_settings.accepts || 'application/vnd.backdrop-ajax'
+    },
+    type: 'POST'
+  };
+  if (element_settings.dialog) {
+    ajax.options.data.dialogOptions = element_settings.dialog;
+  }
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 
   // Bind the ajaxSubmit function to the element event.
   $(ajax.element).bind(element_settings.event, function (event) {
@@ -259,7 +321,11 @@ Drupal.ajax.prototype.eventResponse = function (element, event) {
     // Unset the ajax.ajaxing flag here because it won't be unset during
     // the complete response.
     ajax.ajaxing = false;
+<<<<<<< HEAD
     alert("An error occurred while attempting to process " + ajax.options.url + ": " + e.message);
+=======
+    alert("An error occurred while attempting to process " + ajax.options.url + ": " + e);
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
   }
 
   // For radio/checkbox, allow the default event. On IE, this means letting
@@ -310,6 +376,14 @@ Drupal.ajax.prototype.beforeSerialize = function (element, options) {
   for (var key in Drupal.settings.ajaxPageState.js) {
     options.data['ajax_page_state[js][' + key + ']'] = 1;
   }
+<<<<<<< HEAD
+=======
+
+  // Provide an error if the dialog options can't be parsed.
+  if (this.options.data.dialogOptions && typeof this.options.data.dialogOptions !== 'object') {
+    $.error(Drupal.t('The data-dialog-options property on this link is not valid JSON.'));
+  }
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 };
 
 /**
@@ -356,7 +430,11 @@ Drupal.ajax.prototype.beforeSend = function (xmlhttprequest, options) {
   // interaction while the Ajax request is in progress. ajax.ajaxing prevents
   // the element from triggering a new request, but does not prevent the user
   // from changing its value.
+<<<<<<< HEAD
   $(this.element).addClass('progress-disabled').attr('disabled', true);
+=======
+  $(this.element).addClass('progress-disabled').prop('disabled', true);
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 
   // Insert progressbar or throbber.
   if (this.progress.type == 'bar') {
@@ -391,12 +469,20 @@ Drupal.ajax.prototype.success = function (response, status) {
   if (this.progress.object) {
     this.progress.object.stopMonitoring();
   }
+<<<<<<< HEAD
   $(this.element).removeClass('progress-disabled').removeAttr('disabled');
+=======
+  $(this.element).removeClass('progress-disabled').prop('disabled', false);
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 
   Drupal.freezeHeight();
 
   for (var i in response) {
+<<<<<<< HEAD
     if (response[i]['command'] && this.commands[response[i]['command']]) {
+=======
+    if (response.hasOwnProperty(i) && response[i]['command'] && this.commands[response[i]['command']]) {
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
       this.commands[response[i]['command']](this, response[i], status);
     }
   }
@@ -572,6 +658,16 @@ Drupal.ajax.prototype.commands = {
   },
 
   /**
+<<<<<<< HEAD
+=======
+   * Command to set the window.location, redirecting the browser.
+   */
+  redirect: function (ajax, response, status) {
+    window.location = response.url;
+  },
+
+  /**
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
    * Command to provide the jQuery css() function.
    */
   css: function (ajax, response, status) {

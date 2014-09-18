@@ -11,7 +11,11 @@
 .form-managed-file .form-submit {
   margin: 0;
 }
+<<<<<<< HEAD
 .form-managed-file input.progress-disabled {
+=======
+.form-managed-file .progress-disabled {
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
   display: inline;
   float: none;
 }
@@ -21,6 +25,10 @@
   padding: 0;
   width: 28em;
 }
+<<<<<<< HEAD
 .form-managed-file div.ajax-progress-bar div.bar {
+=======
+.form-managed-file div.ajax-progress-bar .bar {
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
   margin: 0;
 }

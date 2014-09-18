@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Description
 -----------
 
@@ -70,3 +71,11 @@ according to the terms of the GNU General Public License or a compatible
 license. Individual works may have specific copyright information noted within
 their their source code files or directories.
 
+=======
+Backdrop Admin Styleguide
+=========================
+
+The contents of this repository can be viewed as HTML at http://backdrop-ops.github.io/styleguide
+
+This repository is a staging ground for developing the look and feel of the administration theme in Backdrop. For more information on this repository, see https://github.com/backdrop/backdrop-issues/issues/139 and https://github.com/backdrop/backdrop-issues/issues/201.
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99

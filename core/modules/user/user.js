@@ -95,10 +95,17 @@ Drupal.behaviors.password = {
 Drupal.evaluatePasswordStrength = function (password, translate) {
   var weaknesses = 0, strength = 100, msg = [];
 
+<<<<<<< HEAD
   var hasLowercase = password.match(/[a-z]+/);
   var hasUppercase = password.match(/[A-Z]+/);
   var hasNumbers = password.match(/[0-9]+/);
   var hasPunctuation = password.match(/[^a-zA-Z0-9]+/);
+=======
+  var hasLowercase = /[a-z]+/.test(password);
+  var hasUppercase = /[A-Z]+/.test(password);
+  var hasNumbers = /[0-9]+/.test(password);
+  var hasPunctuation = /[^a-zA-Z0-9]+/.test(password);
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
 
   // If there is a username edit box on the page, compare password to that, otherwise
   // use value from the database.
@@ -183,8 +190,13 @@ Drupal.behaviors.fieldUserRegistration = {
     if ($checkbox.length) {
       $('input#edit-instance-required', context).once('user-register-form-checkbox', function () {
         $(this).bind('change', function (e) {
+<<<<<<< HEAD
           if ($(this).attr('checked')) {
             $checkbox.attr('checked', true);
+=======
+          if ($(this).prop('checked')) {
+            $checkbox.prop('checked', true);
+>>>>>>> d3cf98ff8ce83c85706196ea5efc0109684a4a99
           }
         });
       });
